@@ -35,6 +35,18 @@ def make_arch_unknown_tx(txinfo, msginfo):
     _edit_row(row, txinfo, msginfo)
     return row
 
+def make_arch_dao_doa_multisig_unknown_tx(txinfo, msginfo):
+    row = make_unknown_tx(txinfo)
+    row.tx_type = "_DAO_DAO_Multisig_Proposal"
+    
+    #proposal_id = msginfo.message["msg"]["execute"].get("proposal_id")
+    proposal_id = msginfo.wasm[0].get("proposal_id")
+    if proposal_id:
+        row.comment = f"Proposal ID: {proposal_id}"
+    
+    _edit_row(row, txinfo, msginfo)
+    return row
+
 def make_arch_unknown_tx_with_transfer(txinfo, msginfo, sent_amount, sent_currency, received_amount,
                                        received_currency, empty_fee=False, z_index=0):
     row = make_unknown_tx_with_transfer(
@@ -49,7 +61,8 @@ def make_arch_dao_doa_multisig_tx_with_transfer(txinfo, msginfo, sent_amount, se
     
     row.tx_type = "_DAO_DAO_Multisig_Proposal"
     
-    proposal_id = msginfo.message["msg"]["execute"].get("proposal_id")
+    #proposal_id = msginfo.message["msg"]["execute"].get("proposal_id")
+    proposal_id = msginfo.wasm[0].get("proposal_id")
     if proposal_id:
         row.comment = f"Proposal ID: {proposal_id}"
 

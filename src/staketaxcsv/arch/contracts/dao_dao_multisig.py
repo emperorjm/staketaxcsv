@@ -1,4 +1,4 @@
-from staketaxcsv.arch.make_tx import make_arch_unknown_tx, make_arch_dao_doa_multisig_tx_with_transfer
+from staketaxcsv.arch.make_tx import make_arch_dao_doa_multisig_unknown_tx, make_arch_dao_doa_multisig_tx_with_transfer
 from staketaxcsv.arch import util_arch
 import logging
 
@@ -31,6 +31,6 @@ def handle(exporter, txinfo, msginfo):
         util_arch._ingest_dao_dao_rows(exporter, rows)
 
 def handle_unknown(exporter, txinfo, msginfo):
-    row = make_arch_unknown_tx(txinfo, msginfo)
+    row = make_arch_dao_doa_multisig_unknown_tx(txinfo, msginfo)
     
     exporter.ingest_row(row)
